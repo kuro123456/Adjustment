@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <title>イベント作成</title>
+    <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="Content/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            $("#calender").datepicker({
+                dateFormat: "m/d(D)",
+                language: 'ja',
+                onSelect: function (dateText, inst) {
+                    var selectDate = dateText;
+                    var selectHour = $('#selectHour').val();
+                    var selectMinutes = $('#selectMinutes').val();
+
+                    var nowValue = $("#selectDatetime").val();
+                    var newLine = "";
+                    if (0 < nowValue.length) {
+                        newLine = "\n";
+                    }
+                    var addValue = nowValue + newLine + selectDate + " " + selectHour + ":" + selectMinutes;
+                    $("#selectDatetime").val(addValue);
+                }
+            });
+        });
+
+        function CreateEvent() {
+            var eventName = $('#eventName').val();
+            var memo = $('#memo').val();
+            var selectDatetime = $('#selectDatetime').val();
+
+            
+
+            var storage = window['sessionStorage'], x = '__sessionStorage__';
+            sessionStorage.setItem( "eventName" , eventName );
+            sessionStorage.setItem( "memo" , memo );
+            sessionStorage.setItem( "selectDatetime" , selectDatetime );
+        
+            window.location.href = 'EventLinkage.html'
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- 基本情報 -->
+    <div class="card">
+        <div class="card-header">
+            <h3>基本情報</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group row" style="justify-content:center;">
+                <label for="eventName" class="col col-12 col-sm-2 col-form-label">イベント名</label>
+                <div class="col col-12 col-sm-6">
+                    <input type="text" class="form-control" id="eventName" placeholder="イベント名">
+                </div>
+            </div>
+            <div class="form-group row" style="justify-content:center;">
+                <label for="memo" class="col col-12 col-sm-2 col-form-label">メモ</label>
+                <div class="col col-12 col-sm-6">
+                    <textarea class="form-control" id="memo" rows="4" placeholder="例）鍋が食べたい"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 日にち候補 -->
+    <div class="card">
+        <div class="card-header">
+            <h3>日にち候補</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group row" style="justify-content:center;">
+                <label for="selectHourMinutes" class="col col-12 col-sm-2 col-form-label">時刻設定</label>
+                <div class="col col-4 col-sm-2">
+                    <select class="form-control" id="selectHour">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option selected>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                    </select>
+                </div>
+                <label for="selectMinutes" class="col col-1 col-sm-1 col-form-label">時</label>
+                <div class="col col-4 col-sm-2">
+                    <select class="form-control" id="selectMinutes">
+                        <option selected>00</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                <label for="exampleInputEmail1" class="col col-1 col-sm-1 col-form-label">分</label>
+            </div>
+            <div class="form-group row" style="justify-content:center;">
+                <label for="calender" class="col col-12 col-sm-2 col-form-label">日付設定</label>
+                <div class="col col-12 col-sm-6">
+                    <div id="calender"></div>
+                </div>
+            </div>
+            <div class="form-group row" style="justify-content:center;">
+                <label for="selectDatetime" class="col col-12 col-sm-2">候補日時一覧</label>
+                <div class="col col-12 col-sm-6">
+                    <textarea class="form-control" id="selectDatetime" rows="7"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="form-group row" style="justify-content:center;">
+            <input type="submit" style="width: 180px;height: 180px;"
+                class="form-control btn-success text-white rounded-circle p-3" id="createEvent" value="イベント作成"
+                onclick="CreateEvent();">
+        </div>
+    </div>
+</body>
+
+</html>
